@@ -5,17 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cartão Especial</title>
 
-  <div class="envelope"></div>
-
-<div class="card">
-  <!-- CAPA do cartão -->
-  <div class="cover">
-    <div class="cover-box">
-      <img src="https://assets.codepen.io/4927073/ValCard.png" alt="Capa do cartão">
-      <h2 class="cover-title">Para Você 💌</h2>
-    </div>
-  </div>
-
   <!-- Fontes elegantes -->
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Great+Vibes&display=swap" rel="stylesheet">
 
@@ -63,11 +52,6 @@
       width: 399px;
       height: 580px;
       margin: auto;
-      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1),
-                  4px 4px 12px rgba(0, 0, 0, 0.25);
-      background-color: #fffffa;
-      transform: scale(1.05);
-      left: 12px;
       perspective: 1000px;
       border-radius: 16px;
       max-width: 90vw;
@@ -76,16 +60,74 @@
     }
 
     .card:hover {
-      transform: scale(1.08);
+      transform: scale(1.05);
       box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+    }
+
+    /* Faces do cartão */
+    .cover, .front, .back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 16px;
+      backface-visibility: hidden;
+      transform-style: preserve-3d;
+      transform-origin: left center;
+      transition: transform 1s ease;
+    }
+
+    /* CAPA */
+    .cover {
+      background: #fdfdfd;
+      border: 1px solid #e0e0db;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transform: rotateY(0deg);
+    }
+
+    .cover img {
+      width: 60%;
+      margin-bottom: 20px;
+    }
+
+    .cover-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2rem;
+      color: #d6336c;
+    }
+
+    /* Frente interna */
+    .front {
+      background: linear-gradient(135deg, #f9f6f2, #ece7e1);
+      border: 1px solid #e0e0db;
+      transform: rotateY(180deg);
+    }
+
+    /* Verso */
+    .back {
+      background: #fff;
+      box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.1),
+                  4px 4px 12px rgba(0, 0, 0, 0.25);
+      transform: rotateY(-180deg);
+    }
+
+    /* Efeito flip */
+    .card:hover .cover {
+      transform: rotateY(-180deg);
+    }
+    .card:hover .front {
+      transform: rotateY(0deg);
+    }
+    .card:hover .back {
+      transform: rotateY(180deg);
     }
 
     /* Conteúdo da mensagem */
     .message-container {
       padding: 20px;
       box-sizing: border-box;
-      max-width: 100%;
-      overflow-wrap: break-word;
       color: #333;
       font-size: 1rem;
       line-height: 1.7;
@@ -95,7 +137,6 @@
 
     .message-container img {
       max-width: 80%;
-      height: auto;
       margin: 15px auto 0 auto;
       border-radius: 8px;
       display: block;
@@ -109,47 +150,6 @@
       font-family: 'Great Vibes', cursive;
     }
 
-    /* Frente do cartão */
-    .front {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      border: 1px solid #e0e0db;
-      backface-visibility: hidden;
-      background: linear-gradient(135deg, #f9f6f2, #ece7e1);
-      transform-style: preserve-3d;
-      transform-origin: 0% 50%;
-      transform: rotateY(0deg);
-      transition: transform 1s ease;
-      filter: saturate(1.1) brightness(1.02);
-      border-radius: 16px;
-    }
-
-    /* Verso do cartão */
-    .back {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      backface-visibility: hidden;
-      filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.25));
-      box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.1),
-                  4px 4px 12px rgba(0, 0, 0, 0.25);
-      transform-style: preserve-3d;
-      transform-origin: 0% 50%;
-      transform: rotateY(180deg);
-      transition: transform 1s ease;
-      background-color: #fff;
-      border-radius: 16px;
-    }
-
-    /* Efeito flip */
-    .card:hover .front {
-      transform: rotateY(-180deg);
-    }
-    .card:hover .back {
-      transform: rotateY(0deg);
-    }
-
     /* Responsividade */
     @media (max-width: 675px) {
       .envelope {
@@ -161,9 +161,6 @@
         width: 240px;
         height: 350px;
       }
-      .message-container img {
-        max-width: 90%;
-      }
     }
   </style>
 </head>
@@ -174,7 +171,20 @@
 
   <!-- Cartão -->
   <div class="card">
-    <div class="front"></div>
+    <!-- CAPA -->
+    <div class="cover">
+      <img src="https://assets.codepen.io/4927073/ValCard.png" alt="Capa do cartão">
+      <h2 class="cover-title">Para Você 💌</h2>
+    </div>
+
+    <!-- FRENTE -->
+    <div class="front">
+      <div class="message-container">
+        <p>Aqui começa a surpresa ✨</p>
+      </div>
+    </div>
+
+    <!-- VERSO -->
     <div class="back">
       <div class="message-container">
         <p>Este cartão é para alguém muito especial 💖</p>
